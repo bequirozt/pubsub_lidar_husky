@@ -4,12 +4,13 @@ import rospy
 from sensor_msgs.msg import LaserScan
 
 import numpy as np
-from rospy.numpy_msg import numpy_msg 
+from   rospy.numpy_msg import numpy_msg 
 
 class LIDAR_RYCSV:
     
     def __init__(self):
-
+        
+        # Atributos
         self.nameTopicSub = "/scan"
         self.nameTopicPub = "/scan_fixed"
         self.newMsg = LaserScan() # LaserScan msg
@@ -19,14 +20,6 @@ class LIDAR_RYCSV:
 
         # Publisher
         self.pub = rospy.Publisher(self.nameTopicPub, numpy_msg(LaserScan), queue_size=10)
-
-        # Polling con callback
-        rate = rospy.Rate(20) # 20 Hz
-
-        while (not rospy.is_shutdown()):
-
-            self.pub.publish(self.newMsg)
-            rate.sleep()
 
     #--------------------------------------------------------------------------------------#
     # Callback o interrupcion
@@ -40,3 +33,5 @@ class LIDAR_RYCSV:
 
         new_msgLaserScan.ranges = new_msgRanges
         self.newMsg = new_msgLaserScan
+
+        self.pub.publish(self.newMsg)

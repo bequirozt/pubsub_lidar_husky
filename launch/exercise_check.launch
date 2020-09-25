@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <include file="$(find husky_rycsv)/launch/husky_simulation.launch"/>
+
+    <node 
+        pkg="pubsub_lidar_husky" 
+        type="pubsub_node.py" 
+        name="lidar_pub"
+    />
+
+
+</launch>
